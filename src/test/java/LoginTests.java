@@ -1,13 +1,34 @@
+import com.opencsv.CSVReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class LoginTests extends BaseTest {
 
-    @Test
-    public void LoginEmptyEmailPasswordTest() {
+    @DataProvider(name="IncorrectLoginProviders")
+    public static Object[][] getDataFromDataProviders(){
+        return new Object[][]{
+                {"notExisting@email.com", "NotExistingPassword"},
+                {"demo@class.com", ""},
+                {"", ""},
+        };
+    }
+
+    @Test(dataProvider = "IncorrectLoginProviders")
+    public void NegativeLoginTests(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        loginSubmit();
         Assert.assertEquals(driver.getCurrentUrl(), url);
     }
 
@@ -19,11 +40,38 @@ public class LoginTests extends BaseTest {
         WebElement avatar = driver.findElement(By.cssSelector(".avatar"));
         Assert.assertTrue(avatar.isDisplayed());
     }
+    @DataProvider(name = "getData")
+    public Object[][] getData() throws Exception {
+        Reader reader = Files.newBufferedReader(Paths.get(System.getProperty("user.dir") + "/src/test/resources/credentials.csv"));
+        CSVReader csvReader = new CSVReader(reader);
+        List<String[]> records = csvReader.readAll();
+        Object[][] array = null;
+        for (int i = 0; i < records.size(); i++) {
 
+            Object[] row = records.get(i);
+            if (Objects.isNull(array)) {
+                array = new Object[records.size()][row.length];
+            }
+            array[i][0] = row[0];
+            // System.out.println(array[i][column]);
+            array[i][1] = row[1];
+            // System.out.println(array[i][column]);
+
+        }
+        return array;
+
+    }
+
+    @Test(dataProvider = "getData")
+    public void negLoginTests(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        loginSubmit();
+        Assert.assertEquals(driver.getCurrentUrl(), url);
+    }
     @Test
     public void LoginWrongPasswordTest() {
-        enterEmail("demo@class.com");
-        enterPassword("student");
+        login("demo@class.com", "student");
         loginSubmit();
         Assert.assertEquals(driver.getCurrentUrl(), url);
         WebElement submitLogin = driver.findElement(By.cssSelector("button[type='submit']"));
