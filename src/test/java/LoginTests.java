@@ -106,23 +106,6 @@ public class LoginTests extends BaseTest {
         return UUID.randomUUID().toString().replace("-", "");//
     }
 
-    public void enterEmail(String email) {
-        WebElement emailInput = driver.findElement(By.cssSelector("[type='email']"));
-        emailInput.click();
-        emailInput.sendKeys(email);
-    }
-
-    public void enterPassword(String password) {
-        WebElement passwordInput = driver.findElement(By.cssSelector("[type='password']"));
-        passwordInput.click();
-        passwordInput.sendKeys(password);
-    }
-
-    public void loginSubmit() {
-        WebElement submitLogin = driver.findElement(By.cssSelector("button[type='submit']"));
-        submitLogin.click();
-    }
-
 
 }
 //        Email("demo@class.com");
