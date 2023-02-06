@@ -9,6 +9,7 @@
             <class name="BaseTest"/>
             <class name="HW16"/>
             <class name="HW17"/>
+            <class name="HW18"/>
         </classes>
     </test>
 </suite>
