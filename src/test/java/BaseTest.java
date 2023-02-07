@@ -3,19 +3,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 
 
 public class BaseTest {
-
     static WebDriver driver;
-    static String url = "https://bbb.testpro.io/";
+    public String url = null;
 
 
     @BeforeSuite
@@ -24,9 +23,14 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void setUpBrowser() {
-        driver = new ChromeDriver();
+    @Parameters({"baseURL"})
+    public void setUpBrowser(String baseURL) {
+       url = baseURL;
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-notifications");
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
         driver.get(url);
     }
 
@@ -50,5 +54,11 @@ public class BaseTest {
     public void loginSubmit() {
         WebElement submitLogin = driver.findElement(By.cssSelector("button[type='submit']"));
         submitLogin.click();
+    }
+
+    public void login(String email, String password){
+        enterEmail(email);
+        enterPassword(password);
+        loginSubmit();
     }
 }

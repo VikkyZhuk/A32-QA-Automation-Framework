@@ -1,18 +1,31 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.util.UUID;
 
 public class LoginTests extends BaseTest {
 
-    @Test
-    public void LoginEmptyEmailPasswordTest() {
+    @DataProvider(name="IncorrectLoginProviders")
+    public static Object[][] getDataFromDataProviders(){
+        return new Object[][]{
+                {"notExisting@email.com", "NotExistingPassword"},
+                {"demo@class.com", ""},
+                {"", ""},
+        };
+    }
+
+    @Test(dataProvider = "IncorrectLoginProviders")
+    public void negativeLoginTests(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        loginSubmit();
         Assert.assertEquals(driver.getCurrentUrl(), url);
     }
 
     @Test
-    public void LoginSucceedTest() {
+    public void loginSucceedTest() {
         enterEmail("demo@class.com");
         enterPassword("te$t$tudent");
         loginSubmit();
@@ -21,9 +34,8 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void LoginWrongPasswordTest() {
-        enterEmail("demo@class.com");
-        enterPassword("student");
+    public void loginWrongPasswordTest() {
+        login("demo@class.com", "student");
         loginSubmit();
         Assert.assertEquals(driver.getCurrentUrl(), url);
         WebElement submitLogin = driver.findElement(By.cssSelector("button[type='submit']"));
@@ -31,7 +43,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void LoginEmptyPasswordTest() {
+    public void loginEmptyPasswordTest() {
         enterEmail("demo@class.com");
         WebElement submitLogin = driver.findElement(By.cssSelector("button[type='submit']"));
         submitLogin.click();
@@ -42,7 +54,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void LoginWrongEmailTest() {
+    public void loginWrongEmailTest() {
         enterEmail("dem@class.com");
         enterPassword("te$t$tudent");
         loginSubmit();
