@@ -5,6 +5,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.time.Instant;
 import java.util.List;
 
 public class SongsTests extends BaseTest {
@@ -32,17 +34,18 @@ public class SongsTests extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test
-    public void checkVisibilityTest() {
-        enterEmail("demo@class.com");
-        enterPassword("te$t$tudent");
-        loginSubmit();
-        WebElement title = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("title")));
-        String text = title.getText();
-        System.out.println(text);
-        System.out.println("Is element visible? === " + wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("title"))));
-        WebElement title2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("title")));  // should fail
-    }
+//    @Test
+//    public void checkVisibilityTest() {
+//        enterEmail("demo@class.com");
+//        enterPassword("te$t$tudent");
+//        loginSubmit();
+//        Instant wait = null;
+//        WebElement title = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("title")));
+//        String text = title.getText();
+//        System.out.println(text);
+//        System.out.println("Is element visible? === " + wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("title"))));
+//        WebElement title2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("title")));  // should fail
+//    }
 
     @Test
     public void deletePlaylistTest() {

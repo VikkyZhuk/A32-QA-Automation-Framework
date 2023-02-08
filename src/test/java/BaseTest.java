@@ -23,9 +23,9 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    @Parameters({"baseURL"})
-    public void setUpBrowser(String baseURL) {
-       url = baseURL;
+
+    public void setUpBrowser() {
+        String url = "https://bbb.testpro.io/";
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
         driver = new ChromeDriver(options);
