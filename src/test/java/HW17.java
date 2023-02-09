@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,40 +11,23 @@ public class HW17 extends BaseTest {
         enterPassword("te$t$tudent1");
         loginSubmit();
 
-        WebElement allSongsLink = driver.findElement(By.cssSelector(".songs.active"));
+        WebElement allSongsLink = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".menu .songs")));  //.menu .songs   //.songs.active
         allSongsLink.click();
 
-       WebElement song = driver.findElement(By.cssSelector(".song-item .title"));
-       String songName = song.getText();
-       song.click();
+        WebElement song = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".song-item .title")));
+        String songName = song.getText();
+        song.click();
 
-       WebElement addToButton = driver.findElement(By.cssSelector(".btn-add-to"));
-       addToButton.click();
+        WebElement addToButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-add-to")));
+        addToButton.click();
 
-        WebElement playlist1ScrollDown= driver.findElement(By.cssSelector("#songsWrapper .playlist"));
+        WebElement playlist1ScrollDown = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#songsWrapper .playlist")));
         playlist1ScrollDown.click();
 
-        WebElement playlist1 = driver.findElement(By.cssSelector("#playlists .active"));
-        playlist1.click();
+//        WebElement playlist1 = driver.findElement(By.cssSelector("#playlists .active"));
+//        playlist1.click();
 
 
     }
 
-
-    public void enterEmail(String email) {
-        WebElement emailInput = driver.findElement(By.cssSelector("[type='email']"));
-        emailInput.click();
-        emailInput.sendKeys(email);
-    }
-
-    public void enterPassword(String password) {
-        WebElement passwordInput = driver.findElement(By.cssSelector("[type='password']"));
-        passwordInput.click();
-        passwordInput.sendKeys(password);
-    }
-
-    public void loginSubmit() {
-        WebElement submitLogin = driver.findElement(By.cssSelector("button[type='submit']"));
-        submitLogin.click();
-    }
 }
