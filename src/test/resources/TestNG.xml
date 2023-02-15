@@ -15,6 +15,11 @@
             <class name="HW16"/>
             <class name="HW19"/>
             <class name="HW20"/>
+            <class name="HW22"/>
+            <class name="pages.BasePage"/>
+            <class name="pages.LoginPage"/>
+            <class name="pages.HomePage"/>
+            <class name="pages.AllSongsPage"/>
         </classes>
     </test>
 </suite>
