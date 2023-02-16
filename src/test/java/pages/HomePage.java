@@ -5,64 +5,93 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class HomePage extends BasePage{
+public class HomePage extends BasePage {
     public HomePage(WebDriver givenDriver) {
         super(givenDriver);
     }
-    By avatarIcon = By.cssSelector("img.avatar");
-    By allSongsLink = By.cssSelector(".menu .songs");
-    By playBtn = By.cssSelector("[data-testid='play-btn']");
-    By pauseBtn = By.cssSelector("[data-testid='pause-btn']");
-    By deletePlaylistBtn = By.cssSelector(".btn-delete-playlist");
-    By playlistElement = By.cssSelector(".playlist:nth-child(3)");
 
-    public void doubleClickPlaylist (){
-        doubleClick(driver.findElement(playlistElement));
+    @FindBy(css = "img.avatar")
+    private WebElement avatarIcon;
+    @FindBy(css = ".menu .songs")
+    private WebElement allSongsLink;
+    @FindBy(css = "[data-testid='play-btn']")
+    private WebElement playBtn;
+    @FindBy(css = "[data-testid='pause-btn']")
+    private WebElement pauseBtn;
+    @FindBy(css = ".btn-delete-playlist")
+    private WebElement deletePlaylistBtn;
+    @FindBy(css = ".playlist:nth-child(3)")
+    private WebElement playlistElement;
+    @FindBy(css = "input[name='name']")
+    private WebElement playlistInputField;
+    @FindBy(css = ".playlist:nth-child(3)>a")
+    private WebElement playlistElementText;
+    @FindBy(css = ".success.show")
+    private WebElement notificationDelete;
+
+
+
+    public HomePage doubleClickPlaylist() {
+        doubleClick(playlistElement);
+        return this;
     }
 
-    public WebElement getUserAvatar (){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(avatarIcon));
+    public WebElement getUserAvatar() {
+        wait.until(ExpectedConditions.visibilityOf(avatarIcon));
+        return avatarIcon;
     }
 
-    public void clickAllSongsLink(){
-        driver.findElement(allSongsLink).click();
+    public HomePage clickAllSongsLink() {
+        allSongsLink.click();
+        return this;
     }
 
-    public void clickPlayBtn () {
-        actions.moveToElement(driver.findElement(playBtn)).perform();
-        driver.findElement(playBtn).click();
+    public HomePage clickPlayBtn() {
+        actions.moveToElement(playBtn).perform();
+        playBtn.click();
+        return this;
     }
 
-    public boolean pauseBtnPresence (){
-        return driver.findElement(pauseBtn).isDisplayed();
-    }
-    public void clickDeletePlaylistBtn (){
-        driver.findElement(deletePlaylistBtn).click();
+    public boolean pauseBtnPresence() {
+        return pauseBtn.isDisplayed();
     }
 
-    public void enterPlaylistName(String name) {
-        WebElement playlistInputField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[name='name']")));
-        playlistInputField.sendKeys(Keys.HOME,Keys.chord(Keys.SHIFT,Keys.END), name);
+    public HomePage clickDeletePlaylistBtn() {
+        deletePlaylistBtn.click();
+        return this;
+    }
+
+    public HomePage enterPlaylistName(String name) {
+        wait.until(ExpectedConditions.visibilityOf(playlistInputField));
+        playlistInputField.sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), name);
         playlistInputField.sendKeys(Keys.ENTER);
+        return this;
 
     }
 
     public String getPlaylistName() {
-        WebElement playlistElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3)>a")));
-        String name = playlistElement.getText();
+        wait.until(ExpectedConditions.visibilityOf(playlistElementText));
+        String name = playlistElementText.getText();
         return name;
-
     }
 
+    public String notificationDeletePlaylist() {
+        wait.until(ExpectedConditions.visibilityOf(notificationDelete));
+        return notificationDelete.getText();
 
-
-
-
-
-
-
+    }
 }
+
+
+
+
+
+
+
+
+
