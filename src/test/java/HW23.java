@@ -57,12 +57,12 @@ public class HW23 extends BaseTest{
     public void deletePlaylistTest() {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
-        loginPage.login();
 
-        List<WebElement> playlists = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".playlist.playlist>a")));
-        int playlistNumber=playlists.size();
-        playlists.get(playlistNumber-1).click();
-        String name = playlists.get(playlistNumber-1).getText();
+        loginPage.login();
+        homePage.playlistSize();
+        homePage.playlistLast().click();
+
+        String name=homePage.playlistLast().getText();
         System.out.println(name);
 
         homePage.clickDeletePlaylistBtn()

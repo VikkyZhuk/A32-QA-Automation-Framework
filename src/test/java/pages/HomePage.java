@@ -1,10 +1,8 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -33,8 +31,14 @@ public class HomePage extends BasePage {
     private WebElement playlistElementText;
     @FindBy(css = ".success.show")
     private WebElement notificationDelete;
-
-
+    @FindBy(css=".playlist.playlist>a")
+            private List<WebElement> playlists;
+    public int playlistSize (){
+        return playlists.size();
+    }
+    public WebElement playlistLast (){
+        return playlists.get(playlistSize()-1);
+    }
 
     public HomePage doubleClickPlaylist() {
         doubleClick(playlistElement);

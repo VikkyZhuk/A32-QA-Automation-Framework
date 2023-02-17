@@ -17,7 +17,7 @@ public class AllSongsPage extends BasePage{
             private WebElement song;
     @FindBy(css=".btn-add-to")
             private WebElement addToButton;
-    @FindBy(css="\".add-to .existing-playlists .playlist\"")
+    @FindBy(css=".add-to .existing-playlists .playlist")
             private WebElement playlist1ScrollDown;
 
     public String getNotificationText(){
