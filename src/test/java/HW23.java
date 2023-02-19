@@ -53,7 +53,7 @@ public class HW23 extends BaseTest{
 
     }
 
-    @Test
+    @Test (priority = 1)
     public void deletePlaylistTest() {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
