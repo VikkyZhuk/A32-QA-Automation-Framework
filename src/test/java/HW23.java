@@ -35,8 +35,8 @@ public class HW23 extends BaseTest{
         loginPage.login();
         homePage.clickAllSongsLink();
         allSongsPage.clickSong()
-                .clickAddToBtn()
-                .clickPlaylist1ScrollDown();
+                 .clickAddToBtn()
+                 .clickPlaylist1ScrollDown();
 
         Assert.assertTrue(allSongsPage.isNotificationPopUpPresent());
     }

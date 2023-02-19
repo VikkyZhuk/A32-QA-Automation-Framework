@@ -34,6 +34,7 @@ public class AllSongsPage extends BasePage{
     public AllSongsPage clickAddToBtn () {
         addToButton.click();
         return this;
+
     }
     public AllSongsPage clickPlaylist1ScrollDown () {
         playlist1ScrollDown.click();
