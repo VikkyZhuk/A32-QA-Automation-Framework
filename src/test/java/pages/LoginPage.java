@@ -34,8 +34,8 @@ public class LoginPage extends BasePage {
     }
 
     public void login(){
-        provideEmail("vikazhuk0904@gmail.com");
-        providePassword("te$t$tudent1");
+        provideEmail("viktoryia.zhuk@testpro.io");
+        providePassword("te$t$tudent");
         clickSubmitBtn();
     }
 

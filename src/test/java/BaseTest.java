@@ -17,6 +17,7 @@ import org.testng.annotations.Parameters;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.time.Duration;
 
 
@@ -24,6 +25,8 @@ public class BaseTest {
     WebDriver driver;
     public String url = "https://bbb.testpro.io/";
     WebDriverWait wait;
+
+    ThreadLocal<WebDriver> threadDriver;
 
 
 //    @BeforeSuite
@@ -39,11 +42,37 @@ public class BaseTest {
 //        options.addArguments("--disable-notifications");
 //        driver = new ChromeDriver(options);
         driver = pickBrowser (System.getProperty("browser"));
+
+        threadDriver = new ThreadLocal<>();
+        threadDriver.set(driver);
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait = new WebDriverWait(driver,Duration.ofSeconds(4));
         driver.manage().window().maximize();
         driver.get(url);
+
     }
+
+    public WebDriver getThreadDriver(){
+        return threadDriver.get();
+    }
+    public WebDriver lambdaTest() throws MalformedURLException {
+        String userName = "vikazhuk0904";
+        String authkey = "eEIyGIwu48HbXzTyWIPyBUsyT076Wk3YikxNs8VsoGkvGLKKUU";
+        String hub = "@hub.lambdatest.com/wd/hub";
+
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability("platform", "Windows 11");
+        desiredCapabilities.setCapability("browserName", "Chrome");
+        desiredCapabilities.setCapability("version", "110.0");
+        desiredCapabilities.setCapability("resolution", "1920x1080");
+        desiredCapabilities.setCapability("build", "TestNG With Java");
+        desiredCapabilities.setCapability("name", this.getClass().getName());
+        desiredCapabilities.setCapability("plugin", "git-testng");
+
+        return new RemoteWebDriver(new URL("https://" + userName + ":" + authkey + hub), desiredCapabilities);
+    }
+
 
     public WebDriver pickBrowser(String browser) throws MalformedURLException{
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -65,6 +94,8 @@ public class BaseTest {
             case "grid-edge":
                 caps.setCapability("browserName", "edge");
                 return driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), caps);
+            case "cloud":
+                return lambdaTest();
             default:
                 WebDriverManager.chromedriver().setup();
                 return driver = new ChromeDriver();
