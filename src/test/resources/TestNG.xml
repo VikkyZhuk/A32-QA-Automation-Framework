@@ -11,7 +11,7 @@
             <class name="pages.HomePage"/>
             <class name="pages.LoginPage"/>
 
-            <class name="HW23"/>
+            <class name="CucumberRunner"/>
 
         </classes>
     </test>
