@@ -5,8 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -60,4 +60,11 @@ public class LoginStepDef {
     public void tearDown(){
         driver.quit();
     }
+
+    @Then("I stayed on Login Page")
+    public void iStayedOnLoginPage() {
+        LoginPage loginPage = new LoginPage(driver);
+            Assert.assertEquals(loginPage.returnUrl(), url);
+    }
+
 }

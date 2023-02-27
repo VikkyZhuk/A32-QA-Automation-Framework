@@ -10,6 +10,8 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver givenDriver) {
         super(givenDriver);
     }
+    public String url = "https://bbb.testpro.io/";
+
 
     @FindBy(css="[type='email']")
             private WebElement emailField;
@@ -46,4 +48,11 @@ public class LoginPage extends BasePage {
     public WebElement getRegistrationButton () {
         return wait.until(ExpectedConditions.elementToBeClickable(registrationButton));
     }
+    public String returnUrl() {
+        driver.get(url);
+        return (url);
+    }
+
+
+
 }

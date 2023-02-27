@@ -7,3 +7,13 @@ Feature: Login feature
     And I click on submit button
     Then I am on Home Page
 
+    Scenario: Login with invalid email, invalid password
+      Given I open login page
+      When I provide email "viktoryia@testpro.io"
+      And I provide password "te$t$tudent11111"
+      And I click on submit button
+      Then I stayed on Login Page
+
+
+
+

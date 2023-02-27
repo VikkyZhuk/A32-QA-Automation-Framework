@@ -10,8 +10,9 @@
             <class name="pages.AllSongsPage"/>
             <class name="pages.HomePage"/>
             <class name="pages.LoginPage"/>
-
             <class name="CucumberRunner"/>
+
+
 
         </classes>
     </test>

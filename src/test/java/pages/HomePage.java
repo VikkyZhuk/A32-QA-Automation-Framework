@@ -50,6 +50,7 @@ public class HomePage extends BasePage {
         return avatarIcon;
     }
 
+
     public HomePage clickAllSongsLink() {
         allSongsLink.click();
         return this;
