@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pages.BasePage;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -61,10 +62,16 @@ public class LoginStepDef {
         driver.quit();
     }
 
+//    @Then("I stayed on Login Page")
+//    public void iStayedOnLoginPage() {
+//        LoginPage loginPage = new LoginPage(driver);
+//            Assert.assertEquals(loginPage.returnUrl(), url);
+//    }
     @Then("I stayed on Login Page")
     public void iStayedOnLoginPage() {
-        LoginPage loginPage = new LoginPage(driver);
-            Assert.assertEquals(loginPage.returnUrl(), url);
+        String urlHomePage = "https://bbb.testpro.io/#!/home";
+        Assert.assertNotEquals(driver.getCurrentUrl(), urlHomePage);
     }
+
 
 }

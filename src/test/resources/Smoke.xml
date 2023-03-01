@@ -7,7 +7,7 @@
         <classes>
             <class name="LoginTests">
                <methods>
-                   <include name="LoginSucceedTest"/>
+                   <include name="LoginStepDef"/>
                </methods>
             </class>
         </classes>
