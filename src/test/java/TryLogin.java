@@ -72,6 +72,7 @@ public class TryLogin extends BaseTest{
 
 
     }
+    
 
     public String generateRandomName() {
         return UUID.randomUUID().toString().replace("-","");
