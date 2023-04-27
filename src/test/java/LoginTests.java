@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import java.util.UUID;
 
 public class LoginTests extends BaseTest {
+    String url = "https://bbb.testpro.io/";
 
     @Test
     public void LoginEmptyEmailPasswordTest() {
