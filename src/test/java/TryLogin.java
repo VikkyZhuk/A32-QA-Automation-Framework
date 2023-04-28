@@ -1,35 +1,48 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
 import java.util.UUID;
 
 public class TryLogin extends BaseTest{
+
+    //selenium annotation
+    @DataProvider (name="IncorrectLoginProvider")
+    public static Object[][] getDataFromDataProvider(){
+        return new Object[][]{
+                {"notExistingEmail@email.com","notExistingPassword"},
+                {"demo@email.com",""},
+                {"",""},
+        };
+    }
+    @Test (dataProvider = "IncorrectLoginProvider")
+    public void negativeLoginTest(String email, String password){
+        enterEmail(email);
+        enterPassword(password);
+        clickLoginSubmit();
+        Assert.assertEquals(driver.getCurrentUrl(), url);
+    }
+
+    //refactoring. Added methods in BaseTest
     @Test
     public void LoginSuccedTest(){
 //        WebDriver driver = new ChromeDriver();
 //        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//
 //        String url="https://bbb.testpro.io/";
 //        driver.get(url);
 
         enterEmail("viktoryia.zhuk@testpro.io");
-
 //        WebElement emailInput = driver.findElement(By.cssSelector("[type='email']"));
 //        emailInput.click();
 //        emailInput.sendKeys("viktoryia.zhuk@testpro.io");
-        enterPassword("te$t$tudent1");
 
+        enterPassword("te$t$tudent1");
 //        WebElement passwordInput = driver.findElement(By.cssSelector("[type='password']"));
 //        passwordInput.click();
 //        passwordInput.sendKeys("te$t$tudent1");
-        clickLoginSubmit();
 
+        clickLoginSubmit();
 //        WebElement submitLogin= driver.findElement(By.cssSelector("button[type='submit']"));
 //        submitLogin.click();
 
@@ -69,11 +82,9 @@ public class TryLogin extends BaseTest{
         saveButton.click();
 
         Assert.assertEquals(userName, user2);
-
-
     }
-    
 
+    
     public String generateRandomName() {
         return UUID.randomUUID().toString().replace("-","");
     }
