@@ -84,7 +84,7 @@ public class TryLogin extends BaseTest{
         Assert.assertEquals(userName, user2);
     }
 
-    
+
     public String generateRandomName() {
         return UUID.randomUUID().toString().replace("-","");
     }
