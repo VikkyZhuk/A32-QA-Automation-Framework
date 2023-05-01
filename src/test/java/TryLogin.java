@@ -90,29 +90,4 @@ public class TryLogin extends BaseTest{
         Assert.assertEquals(userName, user2);
     }
 
-
-    public String generateRandomName() {
-        return UUID.randomUUID().toString().replace("-","");
-    }
-
-
-    private void clickLoginSubmit() {
-//        WebElement submitLogin= driver.findElement(By.cssSelector("button[type='submit']"));
-        WebElement submitLogin= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));
-        submitLogin.click();
-    }
-
-    private void enterPassword(String password) {
-//        WebElement passwordInput = driver.findElement(By.cssSelector("[type='password']"));
-        WebElement passwordInput = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[type='password']")));
-        passwordInput.click();
-        passwordInput.sendKeys(password);
-    }
-
-    public void enterEmail(String email) {
-//        WebElement emailInput = driver.findElement(By.cssSelector("[type='email']"));
-        WebElement emailInput = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[type='email']")));
-        emailInput.click();
-        emailInput.sendKeys(email);
-    }
 }
