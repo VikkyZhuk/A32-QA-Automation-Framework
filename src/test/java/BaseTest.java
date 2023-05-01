@@ -12,9 +12,9 @@ import java.time.Duration;
 
 public class BaseTest {
 
-    static WebDriver driver;
+    WebDriver driver;
     WebDriverWait wait;
-    String url = "https://bbb.testpro.io/";
+    public String url = null;
 
 
     @BeforeSuite
@@ -24,6 +24,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUpBrowser() {
+        String url = "https://bbb.testpro.io/";
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
