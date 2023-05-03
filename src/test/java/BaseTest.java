@@ -3,7 +3,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -21,19 +23,34 @@ public class BaseTest {
     public String url = null;
 
 
-    @BeforeSuite
-    static void setupClass() {
-        WebDriverManager.chromedriver().setup();
-    }
+//    @BeforeSuite
+//    static void setupClass() {
+//
+//        WebDriverManager.chromedriver().setup();
+//    }
+
 
     @BeforeMethod
+
     public void setUpBrowser() {
         String url = "https://bbb.testpro.io/";
-        driver = new ChromeDriver();
+        driver = pickBrowser(System.getProperty("browser"));
+//        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait=new WebDriverWait(driver, Duration.ofSeconds(4));
         driver.get(url);
+    }
+
+    public WebDriver pickBrowser(String browser){
+        switch (browser){
+            case "edge":
+                WebDriverManager.edgedriver().setup();
+                return driver=new EdgeDriver();
+            default:
+                WebDriverManager.chromedriver().setup();
+                return driver=new ChromeDriver();
+        }
     }
 
     @AfterMethod

@@ -57,7 +57,7 @@ public class TryPlaylist extends BaseTest {
         String newName = getPlaylistName();
         Assert.assertEquals(newName, playlistName);
     }
-    
+
     public void doubleClickChoosePlaylist(){
         WebElement playlistElement = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".playlist:nth-child(3)")));
         Actions action = new Actions(driver);
